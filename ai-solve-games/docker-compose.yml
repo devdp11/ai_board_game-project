@@ -1,0 +1,6 @@
+services:
+  ai-games:
+    container_name: ai-games
+    build: docker/python
+    volumes:
+      - ./src:/app
