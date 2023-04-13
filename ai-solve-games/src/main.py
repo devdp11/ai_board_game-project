@@ -1,7 +1,8 @@
-from games.tictactoe.players.TicTacToeMinimax import MinimaxTicTacToePlayer
-from games.tictactoe.players.TicTacToeRandom import RandomTicTacToePlayer
-from games.tictactoe.players.TicTacToeHuman import HumanTicTacToePlayer
-from games.tictactoe.TicTacToeSimulator import TicTacToeSimulator
+from games.mijnlieff.players.MijnlieffMinimax import MinimaxMijnlieffPlayer
+from games.mijnlieff.players.MijnlieffRandom import RandomMijnlieffPlayer
+from games.mijnlieff.players.MijnlieffHuman import HumanMijnlieffPlayer
+from games.mijnlieff.MijnlieffSimulator import MijnlieffSimulator
+from games.mijnlieff.MijnlieffRules import MijnlieffRules
 
 from games.game_simulator import GameSimulator
 
@@ -14,27 +15,36 @@ def run_simulation(desc: str, simulator: GameSimulator, iterations: int):
 
     print("\nResults for the game:")
     simulator.print_stats()
+    
+"""
+def menu():
+    print("[1] - Human vs Human")
+    print("[2] - Human vs Random")
+    print("[3] - Human vs Minimax")
+    print("[4] - Minimax vs Random")
+    print("[0] - Close Program")
 
+    escolha = int(input("\nEscolha uma opção:"))
+"""
 
 def main():
-    print("ESTG IA Games Simulator")
+    print("\n INTELIGÊNCIA ARTIFICIAL TP1 GAME")
 
-    name = input("\nIntroduza o seu nome:")
+    name = input("\nIntroduza o seu nome:\t")
     print(f"Bem Vindo {name}, vamos começar com os jogos!\n")
-
+    
     num_iterations = 2
 
-    tictactoe_simulations = [
-        # uncomment to play as human
+    mijnlieff_simulations = [
         {
            "name": f"\nTicTacToe - {name} VS MiniMax\n",
-           "player1": HumanTicTacToePlayer(f"{name}"),
-           "player2": MinimaxTicTacToePlayer("MiniMax")
+           "player1": HumanMijnlieffPlayer(f"{name}"),
+           "player2": MinimaxMijnlieffPlayer("MiniMax")
         },
     ]
 
-    for sim in tictactoe_simulations:
-        run_simulation(sim["name"], TicTacToeSimulator(sim["player1"], sim["player2"]), num_iterations)
+    for sim in mijnlieff_simulations:
+        run_simulation(sim["name"], MijnlieffSimulator(sim["player1"], sim["player2"]), num_iterations)
 
 
 if __name__ == "__main__":
