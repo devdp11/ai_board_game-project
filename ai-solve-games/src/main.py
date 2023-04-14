@@ -16,16 +16,15 @@ def run_simulation(desc: str, simulator: GameSimulator, iterations: int):
     print("\nResults for the game:")
     simulator.print_stats()
     
-"""
-def menu():
+
+"""def menu():
     print("[1] - Human vs Human")
     print("[2] - Human vs Random")
     print("[3] - Human vs Minimax")
     print("[4] - Minimax vs Random")
     print("[0] - Close Program")
 
-    escolha = int(input("\nEscolha uma opção:"))
-"""
+    escolha = int(input("\nEscolha uma opção:"))"""
 
 def main():
     print("\n INTELIGÊNCIA ARTIFICIAL TP1 GAME")
@@ -37,7 +36,7 @@ def main():
 
     mijnlieff_simulations = [
         {
-           "name": f"\nTicTacToe - {name} VS MiniMax\n",
+           "name": f"\nMijnLieff - {name} VS MiniMax\n",
            "player1": HumanMijnlieffPlayer(f"{name}"),
            "player2": MinimaxMijnlieffPlayer("MiniMax")
         },
