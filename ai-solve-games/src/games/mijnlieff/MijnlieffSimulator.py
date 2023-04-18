@@ -5,7 +5,7 @@ from games.game_simulator import GameSimulator
 
 class MijnlieffSimulator(GameSimulator):
 
-    def __init__(self, player1: MijnlieffPlayer, player2: MijnlieffPlayer, num_rows: int = 4, num_cols: int = 4):
+    def __init__(self, player1: MijnlieffPlayer, player2: MijnlieffPlayer, num_rows: int = 5, num_cols: int = 5):
         super(MijnlieffSimulator, self).__init__([player1, player2])
         """
         the number of rows and cols from the connect4 grid

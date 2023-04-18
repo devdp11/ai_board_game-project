@@ -8,10 +8,10 @@ from games.state import State
 class MijnlieffState(State):
     EMPTY_CELL = -1
 
-    def __init__(self, rows: int = 4, cols: int = 4):
+    def __init__(self, rows: int = 5, cols: int = 5):
         super().__init__()
 
-        if rows < 4 or cols < 4:
+        if rows < 5 or cols < 5:
             raise Exception("the number of rows must be 4 or over")
 
         """
@@ -42,8 +42,8 @@ class MijnlieffState(State):
 
     def __check_winner(self, player):
         # check for 4 across
-        for row in range(0, self.__num_rows):
-            for col in range(0, self.__num_cols - 3):
+        for row in range(1, self.__num_rows):
+            for col in range(1, self.__num_cols - 4):
                 if self.__grid[row][col] == player and \
                         self.__grid[row][col + 1] == player and \
                         self.__grid[row][col + 2] == player and \
@@ -51,8 +51,8 @@ class MijnlieffState(State):
                     return True
 
         # check for 4 up and down
-        for row in range(0, self.__num_rows - 3):
-            for col in range(0, self.__num_cols):
+        for row in range(1, self.__num_rows - 4):
+            for col in range(1, self.__num_cols):
                 if self.__grid[row][col] == player and \
                         self.__grid[row + 1][col] == player and \
                         self.__grid[row + 2][col] == player and \
@@ -60,8 +60,8 @@ class MijnlieffState(State):
                     return True
 
         # check upward diagonal
-        for row in range(0, self.__num_rows):
-            for col in range(0, self.__num_cols - 3):
+        for row in range(1, self.__num_rows):
+            for col in range(1, self.__num_cols - 4):
                 if self.__grid[row][col] == player and \
                         self.__grid[row - 1][col + 1] == player and \
                         self.__grid[row - 2][col + 2] == player and \
@@ -69,8 +69,8 @@ class MijnlieffState(State):
                     return True
 
         # check downward diagonal
-        for row in range(0, self.__num_rows - 3):
-            for col in range(0, self.__num_cols - 3):
+        for row in range(1, self.__num_rows - 4):
+            for col in range(1, self.__num_cols - 4):
                 if self.__grid[row][col] == player and \
                         self.__grid[row + 1][col + 1] == player and \
                         self.__grid[row + 2][col + 2] == player and \
@@ -90,10 +90,10 @@ class MijnlieffState(State):
         row = action.get_row()
 
         # valid column
-        if col < 0 or col >= self.__num_cols:
+        if col < 1 or col >= self.__num_cols:
             return False
         # valid row
-        if row < 0 or row >= self.__num_rows:
+        if row < 1 or row >= self.__num_rows:
             return False
         
         # full column
@@ -125,13 +125,13 @@ class MijnlieffState(State):
               }[self.__grid[row][col]], end="")
 
     def __display_numbers(self):
-        for col in range(0, self.__num_cols):
+        for col in range(1, self.__num_cols):
             print(' ', end="")
             print(col, end="")
         print("")
 
     def __display_separator(self):
-        for col in range(0, self.__num_cols):
+        for col in range(1, self.__num_cols):
             print("--", end="")
         print("-")
 
@@ -139,10 +139,10 @@ class MijnlieffState(State):
         self.__display_numbers()
         self.__display_separator()
 
-        for row in range(0, self.__num_rows):
+        for row in range(1, self.__num_rows):
             print(row, end="")
             print('|', end="")
-            for col in range(0, self.__num_cols):
+            for col in range(1, self.__num_cols):
                 self.__display_cell(row, col)
                 print('|', end="")
             print("")
@@ -165,8 +165,8 @@ class MijnlieffState(State):
         cloned_state.__turns_count = self.__turns_count
         cloned_state.__acting_player = self.__acting_player
         cloned_state.__has_winner = self.__has_winner
-        for row in range(0, self.__num_rows):
-            for col in range(0, self.__num_cols):
+        for row in range(1, self.__num_rows):
+            for col in range(1, self.__num_cols):
                 cloned_state.__grid[row][col] = self.__grid[row][col]
         return cloned_state
 

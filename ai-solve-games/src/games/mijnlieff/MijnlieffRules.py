@@ -11,6 +11,7 @@ class MijnlieffRules():
 
 
     def __display_Piece(self, row, col):
+        
         print([])
         pass
 
