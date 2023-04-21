@@ -3,12 +3,20 @@ from games.mijnlieff.MijnlieffState import MijnlieffState
  
 class MijnlieffRules():
 
-    def __display_Rules(self, row, col):
+    def __display_Rules(self, row, col, choice):
+        print('1-Peça  Straights'
+            '2-Peça  Diagonals'
+            '3-Peça  Pushers'
+            '4-Peça  Pullers')
         print({
-            0: 'Peça  Straights',
-            1: 'Peça  Diagonals',
-            3: 'Peça  Pushers',
-            4: 'Peça  Pullers',
+            0: 1['+'],
+            0: 2['x'],
+            0: 3['o'],
+            0: 4['0'],
+            1: 1['+'],
+            1: 2['x'],
+            1: 3['o'],
+            1: 4['0'],
             MijnlieffState.EMPTY_CELL: ' '
         }[self.__grid[row][col]], end="")
         
@@ -21,6 +29,8 @@ class MijnlieffRules():
         for row in range(self.__num_rows):
             for col in range(self.__num_cols):
                 if player == 1:
+                    self.__num_rows
+                    
                     
         print([])
         pass
