@@ -41,40 +41,37 @@ class MijnlieffState(State):
         self.__has_winner = False
 
     def __check_winner(self, player):
-        # check for 4 across
-        for row in range(1, self.__num_rows):
-            for col in range(1, self.__num_cols - 4):
+
+        # check for 3 across
+        for row in range(0, self.__num_rows):
+            for col in range(0, self.__num_cols - 2):
                 if self.__grid[row][col] == player and \
                         self.__grid[row][col + 1] == player and \
-                        self.__grid[row][col + 2] == player and \
-                        self.__grid[row][col + 3] == player:
+                        self.__grid[row][col + 2] == player:
                     return True
 
-        # check for 4 up and down
-        for row in range(1, self.__num_rows - 4):
-            for col in range(1, self.__num_cols):
+        # check for 3 up and down
+        for row in range(0, self.__num_rows - 2):
+            for col in range(0, self.__num_cols):
                 if self.__grid[row][col] == player and \
                         self.__grid[row + 1][col] == player and \
-                        self.__grid[row + 2][col] == player and \
-                        self.__grid[row + 3][col] == player:
+                        self.__grid[row + 2][col] == player:
                     return True
 
         # check upward diagonal
-        for row in range(1, self.__num_rows):
-            for col in range(1, self.__num_cols - 4):
+        for row in range(0, self.__num_rows):
+            for col in range(0, self.__num_cols - 2):
                 if self.__grid[row][col] == player and \
                         self.__grid[row - 1][col + 1] == player and \
-                        self.__grid[row - 2][col + 2] == player and \
-                        self.__grid[row - 3][col + 3] == player:
+                        self.__grid[row - 2][col + 2] == player:
                     return True
 
         # check downward diagonal
-        for row in range(1, self.__num_rows - 4):
-            for col in range(1, self.__num_cols - 4):
+        for row in range(0, self.__num_rows - 2):
+            for col in range(0, self.__num_cols - 2):
                 if self.__grid[row][col] == player and \
                         self.__grid[row + 1][col + 1] == player and \
-                        self.__grid[row + 2][col + 2] == player and \
-                        self.__grid[row + 3][col + 3] == player:
+                        self.__grid[row + 2][col + 2] == player:
                     return True
 
         return False
@@ -126,25 +123,25 @@ class MijnlieffState(State):
 
     def __display_numbers(self):
         for col in range(1, self.__num_cols):
-            print(' ', end="")
+            print("   ", end=" ")
             print(col, end="")
         print("")
 
     def __display_separator(self):
         for col in range(1, self.__num_cols):
-            print("--", end="")
-        print("-")
+            print("---", "", end="")
+        print("---")
 
     def display(self):
         self.__display_numbers()
         self.__display_separator()
 
         for row in range(1, self.__num_rows):
-            print(row, end="")
-            print('|', end="")
+            print("", row, "", end="")
+            print('|', "", "", end="")
             for col in range(1, self.__num_cols):
                 self.__display_cell(row, col)
-                print('|', end="")
+                print('|', "", "", end="")
             print("")
             self.__display_separator()
 

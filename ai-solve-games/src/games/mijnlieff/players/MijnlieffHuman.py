@@ -13,7 +13,7 @@ class HumanMijnlieffPlayer(MijnlieffPlayer):
         while True:
             # noinspection PyBroadException
             try:
-                return MijnlieffAction(int(input(f"Player {state.get_acting_player()}, Escolha uma Coluna: ")), int(input(f"Player {state.get_acting_player()}, Escolha uma Linha: ")))
+                return MijnlieffAction(int(input(f"Player {state.get_acting_player()}, Escolha uma Coluna:")), int(input(f"Player {state.get_acting_player()}, Escolha uma Linha:")))
             except Exception:
                 continue
 

@@ -4,10 +4,6 @@ from games.mijnlieff.MijnlieffState import MijnlieffState
 class MijnlieffRules():
 
     def __display_Rules(self, row, col, choice):
-        print('1-Peça  Straights'
-            '2-Peça  Diagonals'
-            '3-Peça  Pushers'
-            '4-Peça  Pullers')
         print({
             0: 1['+'],
             0: 2['x'],
@@ -23,7 +19,7 @@ class MijnlieffRules():
         choice = int(input("Escolha uma peça para jogar:"))
 
 
-    def __display_Piece(self, row, col):
+    def __display_Piece(self, row, col, player):
         self.__num_rows = row
         self.__num_cols = col
         for row in range(self.__num_rows):

@@ -16,28 +16,51 @@ def run_simulation(desc: str, simulator: GameSimulator, iterations: int):
     print("\nResults for the game:")
     simulator.print_stats()
     
+def menu():
+    while(True):
+        print("\n[1] - Play Mijnlieff")
+        print("[2] - Mijnlieff Gameplay Information")
+        print("[0] - Close Program")
 
-"""def menu():
-    print("[1] - Human vs Human")
-    print("[2] - Human vs Random")
-    print("[3] - Human vs Minimax")
-    print("[4] - Minimax vs Random")
-    print("[0] - Close Program")
+        escolha = int(input("\nEscolha uma opção:"))
 
-    escolha = int(input("\nEscolha uma opção:"))"""
+        if escolha > 3:
+            print("\nWrong Option | Choose another...")
+            continue
+
+        if escolha == 1:
+            main()
+        elif escolha == 2:
+            information()
+        elif escolha == 0:
+            print("\nLeaving the Program...")
+            break
+
+def information():
+    print("\n-- Regulamento das Peças --")
+    print('Peça  Straights (+) - Ao jogar esta peça, o oponente só poderá jogar nas posições retas à ultima peça colocada.')
+    print('Peça  Diagonals (x) - Ao jogar esta peça, o oponente só poderá jogar nas posições diagonais à ultima peça colocada.')
+    print('Peça  Pushers (o) - Ao jogar esta peça, o oponente só poderá jogar nas posições adjacentes à ultima peça colocada.')
+    print('Peça  Pullers (O) - Ao jogar esta peça, o oponente só poderá jogar nas posições não adjacentes à ultima peça colocada.')
+    print("\n-- Regras do Jogo --")
+    print("-> O jogo só termina quando o tabuleiro esta completo ou quando o jogador já não consegue colocar mais nenhuma peça.")
+    print("-> A primeira jogada poderá ser em qualquer lugar do tabuleiro mas de adiante as jogadas terão que respeitar o regulamento conforme as peças.")
+    print("-> O jogador terá 8 peças, 2 de cada tipo podendo usar apenas cada tipo 2 vezes e não podendo mudar a posição depois de colocada.\n")
+
+    
 
 def main():
-    print("\n INTELIGÊNCIA ARTIFICIAL TP1 GAME")
+    print("\nINTELIGÊNCIA ARTIFICIAL TP1 GAME")
 
-    name = input("\nIntroduza o seu nome:\t")
-    print(f"Bem Vindo {name}, vamos começar com os jogos!\n")
+    name1 = input("\nIntroduza o seu nome:")
+    print(f"Bem Vindo {name1}, vamos começar com os jogos!\n")
     
     num_iterations = 2
 
     mijnlieff_simulations = [
         {
-           "name": f"\nMijnLieff - {name} VS MiniMax\n",
-           "player1": HumanMijnlieffPlayer(f"{name}"),
+           "name": f"\nMijnLieff - {name1} VS MiniMax\n",
+           "player1": HumanMijnlieffPlayer(f"{name1}"),
            "player2": MinimaxMijnlieffPlayer("MiniMax")
         },
     ]
@@ -46,5 +69,4 @@ def main():
         run_simulation(sim["name"], MijnlieffSimulator(sim["player1"], sim["player2"]), num_iterations)
 
 
-if __name__ == "__main__":
-    main()
+menu()
