@@ -1,7 +1,7 @@
 from enum import Enum, auto
 
 class MijnlieffPieceType(Enum):
-    CROSS = auto()
-    CIRCLE = auto()
-    TRIANGLE = auto()
-    SQUARE = auto()
+    S = auto()
+    D = auto()
+    H = auto()
+    L = auto()

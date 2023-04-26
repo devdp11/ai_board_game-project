@@ -1,6 +1,7 @@
 from games.mijnlieff.MijnlieffAction import MijnlieffAction
 from games.mijnlieff.MijnlieffPlayer import MijnlieffPlayer
 from games.mijnlieff.MijnlieffState import MijnlieffState
+from games.mijnlieff.MijnlieffPieceType import MijnlieffPieceType
 
 
 class HumanMijnlieffPlayer(MijnlieffPlayer):
@@ -10,6 +11,7 @@ class HumanMijnlieffPlayer(MijnlieffPlayer):
 
     def get_action(self, state: MijnlieffState):
         state.display()
+        last_action = state.get_last_move()
         while True:
             # noinspection PyBroadException
             try:
@@ -21,6 +23,11 @@ class HumanMijnlieffPlayer(MijnlieffPlayer):
                 col = int(input(f"Player {state.get_acting_player()}, Escolha uma Coluna: "))
                 row = int(input(f"Player {state.get_acting_player()}, Escolha uma Linha: "))
                 action = MijnlieffAction(row, col, piece)
+
+                # Check if the move is valid based on the last_action
+                if last_action is not None and not state.is_valid_move(last_action, action):
+                    print("Invalid move based on the last played piece. Please try again.")
+                    continue
 
                 if state.validate_action(action):
                     return action
