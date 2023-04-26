@@ -1,80 +1,50 @@
 from typing import Optional
-
 from games.mijnlieff.MijnlieffAction import MijnlieffAction
 from games.mijnlieff.MijnlieffResult import MijnlieffResult
+from games.mijnlieff.MijnlieffPieceType import MijnlieffPieceType
 from games.state import State
 
 
 class MijnlieffState(State):
     EMPTY_CELL = -1
 
-    def __init__(self, rows: int = 5, cols: int = 5):
+    def __init__(self, rows: int = 4, cols: int = 4):
         super().__init__()
 
-        if rows < 5 or cols < 5:
-            raise Exception("the number of rows must be 4 or over")
+        if rows != 4 or cols != 4:
+            raise Exception("The Mijnlieff board must be 4x4")
 
-        """
-        the dimensions of the board
-        """
         self.__num_rows = rows
         self.__num_cols = cols
 
-        """
-        the grid
-        """
-        self.__grid = [[MijnlieffState.EMPTY_CELL for _i in range(self.__num_cols)] for _j in range(self.__num_rows)]
+        self.__last_move = None
 
-        """
-        counts the number of turns in the current game
-        """
+        self.__grid = [[None for _i in range(self.__num_cols)] for _j in range(self.__num_rows)]
+
         self.__turns_count = 1
 
-        """
-        the index of the current acting player
-        """
         self.__acting_player = 0
 
-        """
-        determine if a winner was found already 
-        """
         self.__has_winner = False
 
-    def __check_winner(self, player):
+    def __check_winner(self):
+        scores = [0, 0]
+        """ continuar a partir daqui """
+        # Check horizontal and vertical lines
+        for row in range(self.__num_rows):
+            scores[self.__check_line_winner(self.__grid[row])] += 1
 
-        # check for 3 across
-        for row in range(0, self.__num_rows):
-            for col in range(0, self.__num_cols - 2):
-                if self.__grid[row][col] == player and \
-                        self.__grid[row][col + 1] == player and \
-                        self.__grid[row][col + 2] == player:
-                    return True
+        for col in range(self.__num_cols):
+            scores[self.__check_line_winner([self.__grid[row][col] for row in range(self.__num_rows)])] += 1
 
-        # check for 3 up and down
-        for row in range(0, self.__num_rows - 2):
-            for col in range(0, self.__num_cols):
-                if self.__grid[row][col] == player and \
-                        self.__grid[row + 1][col] == player and \
-                        self.__grid[row + 2][col] == player:
-                    return True
+        # Check diagonals
+        for direction in [1, -1]:
+            for row in range(self.__num_rows - 3):
+                for col in range(self.__num_cols - 3):
+                    diagonal = [self.__grid[row + i][col + i * direction] for i in range(4)]
+                    scores[self.__check_line_winner(diagonal)] += 1
 
-        # check upward diagonal
-        for row in range(0, self.__num_rows):
-            for col in range(0, self.__num_cols - 2):
-                if self.__grid[row][col] == player and \
-                        self.__grid[row - 1][col + 1] == player and \
-                        self.__grid[row - 2][col + 2] == player:
-                    return True
-
-        # check downward diagonal
-        for row in range(0, self.__num_rows - 2):
-            for col in range(0, self.__num_cols - 2):
-                if self.__grid[row][col] == player and \
-                        self.__grid[row + 1][col + 1] == player and \
-                        self.__grid[row + 2][col + 2] == player:
-                    return True
-
-        return False
+        return scores[0] != scores[1]
 
     def get_grid(self):
         return self.__grid
@@ -83,63 +53,94 @@ class MijnlieffState(State):
         return 2
 
     def validate_action(self, action: MijnlieffAction) -> bool:
-        col = action.get_col()
+        if action is None:
+            return False
+
         row = action.get_row()
+        col = action.get_col()
 
-        # valid column
-        if col < 1 or col >= self.__num_cols:
+        if col < 0 or col >= self.__num_cols:
             return False
-        # valid row
-        if row < 1 or row >= self.__num_rows:
+        if row < 0 or row >= self.__num_rows:
             return False
-        
-        # full column
-        if self.__grid[row][col] != MijnlieffState.EMPTY_CELL:
+        if self.__grid[row][col] is not None:
             return False
 
+        # Check if the action is valid according to the last move's piece effect
+        last_move = self.get_last_move()
+        if last_move:
+            self.is_valid_move(last_move, action)
+            """  last_row, last_col = last_move.get_row(), last_move.get_col()
+            last_piece = self.__grid[last_row][last_col]
+            return last_piece.is_valid_move((last_row, last_col), (row, col)) """
         return True
 
     def update(self, action: MijnlieffAction):
-        col = action.get_col()
         row = action.get_row()
+        col = action.get_col()
+        piece = action.get_type()
 
-        # drop the checker
-        self.__grid[row][col] = self.__acting_player
+        self.__grid[row][col] = piece
+    
+        self.__has_winner = self.__check_winner()
 
-        # determine if there is a winner
-        self.__has_winner = self.__check_winner(self.__acting_player)
-
-        # switch to next player
         self.__acting_player = 1 if self.__acting_player == 0 else 0
 
         self.__turns_count += 1
 
+        self.__last_move = action
+
+    def is_valid_move(self, last_action: MijnlieffAction, action: MijnlieffAction):
+        current_col = last_action.get_col()
+        current_row = last_action.get_row()
+        target_col = action.get_col()
+        target_row = action.get_row()
+        row_diff = abs(target_row - current_row)
+        col_diff = abs(target_col - current_col)
+
+        piece_type = last_action.get_type()
+
+        if piece_type == MijnlieffPieceType.CROSS:
+            return col_diff == 0 or row_diff == 0
+        elif piece_type == MijnlieffPieceType.CIRCLE:
+            return col_diff == row_diff
+        elif piece_type == MijnlieffPieceType.TRIANGLE:
+            return col_diff == 1 and row_diff == 1
+        elif piece_type == MijnlieffPieceType.SQUARE:
+            return (col_diff == 0 and row_diff == 1) or (col_diff == 1 and row_diff == 0)
+
+        return False
+
+    def get_last_move(self) -> Optional[MijnlieffAction]:
+        return self.__last_move
+    
     def __display_cell(self, row, col):
-        print({
-                  0: 'X',
-                  1: 'O',
-                  MijnlieffState.EMPTY_CELL: ' '
-              }[self.__grid[row][col]], end="")
+            cell = self.__grid[row][col]
+            if cell == MijnlieffState.EMPTY_CELL:
+                print(" ", end="")
+            else:
+                player, piece = cell
+                print(f"{piece}{player + 1}", end="")
 
     def __display_numbers(self):
-        for col in range(1, self.__num_cols):
-            print("   ", end=" ")
+        for col in range(self.__num_cols):
+            print("  ", end=" ")
             print(col, end="")
         print("")
 
     def __display_separator(self):
-        for col in range(1, self.__num_cols):
-            print("---", "", end="")
-        print("---")
+        for col in range(self.__num_cols):
+            print("----", end="")
+        print("")
 
     def display(self):
         self.__display_numbers()
         self.__display_separator()
 
-        for row in range(1, self.__num_rows):
+        for row in range(self.__num_rows):
             print("", row, "", end="")
             print('|', "", "", end="")
-            for col in range(1, self.__num_cols):
+            for col in range(self.__num_cols):
                 self.__display_cell(row, col)
                 print('|', "", "", end="")
             print("")
@@ -162,8 +163,8 @@ class MijnlieffState(State):
         cloned_state.__turns_count = self.__turns_count
         cloned_state.__acting_player = self.__acting_player
         cloned_state.__has_winner = self.__has_winner
-        for row in range(1, self.__num_rows):
-            for col in range(1, self.__num_cols):
+        for row in range(self.__num_rows):
+            for col in range(self.__num_cols):
                 cloned_state.__grid[row][col] = self.__grid[row][col]
         return cloned_state
 
@@ -184,19 +185,21 @@ class MijnlieffState(State):
         pass
 
     def get_possible_actions(self):
-        grid: list[list[int]] = []
-        for i in range(self.get_num_rows()):
-            for j in range(self.get_num_cols()):
-                grid.append([i, j])
+            grid: list[list[int]] = []
+            for i in range(self.get_num_rows()):
+                for j in range(self.get_num_cols()):
+                    grid.append([i, j])
 
-        return list(filter(
-            lambda action: self.validate_action(action),
-            map(
-                lambda pos: MijnlieffAction(pos[0], pos[1]),
-                grid))
-        )
+            possible_actions = []
+            for pos in grid:
+                for piece in ['A', 'B', 'C', 'D']:
+                    action = MijnlieffAction(pos[0], pos[1], piece)
+                    if self.validate_action(action):
+                        possible_actions.append(action)
+
+            return possible_actions
 
     def sim_play(self, action):
         new_state = self.clone()
-        new_state.play(action)
+        new_state.update(action)
         return new_state

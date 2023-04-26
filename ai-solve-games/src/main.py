@@ -55,7 +55,7 @@ def main():
     name1 = input("\nIntroduza o seu nome:")
     print(f"Bem Vindo {name1}, vamos começar com os jogos!\n")
     
-    num_iterations = 2
+    num_iterations = 1
 
     mijnlieff_simulations = [
         {

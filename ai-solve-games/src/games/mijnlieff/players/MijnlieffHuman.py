@@ -13,7 +13,19 @@ class HumanMijnlieffPlayer(MijnlieffPlayer):
         while True:
             # noinspection PyBroadException
             try:
-                return MijnlieffAction(int(input(f"Player {state.get_acting_player()}, Escolha uma Coluna:")), int(input(f"Player {state.get_acting_player()}, Escolha uma Linha:")))
+                piece = int(input(f"Player {state.get_acting_player()}, Escolha uma Peça (1-4): "))
+                if piece not in range(1, 5):
+                    print("Invalid piece. Please choose a piece between 1 and 4.")
+                    continue
+
+                col = int(input(f"Player {state.get_acting_player()}, Escolha uma Coluna: "))
+                row = int(input(f"Player {state.get_acting_player()}, Escolha uma Linha: "))
+                action = MijnlieffAction(row, col, piece)
+
+                if state.validate_action(action):
+                    return action
+                else:
+                    print("Invalid move. Please try again.")
             except Exception:
                 continue
 
