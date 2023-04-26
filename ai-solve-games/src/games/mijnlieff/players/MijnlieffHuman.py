@@ -13,7 +13,7 @@ class HumanMijnlieffPlayer(MijnlieffPlayer):
         while True:
             # noinspection PyBroadException
             try:
-                piece = int(input(f"Player {state.get_acting_player()}, Escolha uma Peça (1-4): "))
+                piece = int(input(f"Player {state.get_acting_player()}, Escolha uma Peça (1 - 4): "))
                 if piece not in range(1, 5):
                     print("Invalid piece. Please choose a piece between 1 and 4.")
                     continue

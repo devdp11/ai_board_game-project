@@ -38,10 +38,10 @@ def menu():
 
 def information():
     print("\n-- Regulamento das Peças --")
-    print('Peça  Straights (+) - Ao jogar esta peça, o oponente só poderá jogar nas posições retas à ultima peça colocada.')
-    print('Peça  Diagonals (x) - Ao jogar esta peça, o oponente só poderá jogar nas posições diagonais à ultima peça colocada.')
-    print('Peça  Pushers (o) - Ao jogar esta peça, o oponente só poderá jogar nas posições adjacentes à ultima peça colocada.')
-    print('Peça  Pullers (O) - Ao jogar esta peça, o oponente só poderá jogar nas posições não adjacentes à ultima peça colocada.')
+    print('Peça  Straights (1) - Ao jogar esta peça, o oponente só poderá jogar nas posições retas à ultima peça colocada.')
+    print('Peça  Diagonals (2) - Ao jogar esta peça, o oponente só poderá jogar nas posições diagonais à ultima peça colocada.')
+    print('Peça  Pushers (3) - Ao jogar esta peça, o oponente só poderá jogar nas posições adjacentes à ultima peça colocada.')
+    print('Peça  Pullers (4) - Ao jogar esta peça, o oponente só poderá jogar nas posições não adjacentes à ultima peça colocada.')
     print("\n-- Regras do Jogo --")
     print("-> O jogo só termina quando o tabuleiro esta completo ou quando o jogador já não consegue colocar mais nenhuma peça.")
     print("-> A primeira jogada poderá ser em qualquer lugar do tabuleiro mas de adiante as jogadas terão que respeitar o regulamento conforme as peças.")

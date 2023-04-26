@@ -2,7 +2,7 @@ from games.mijnlieff.MijnlieffAction import MijnlieffAction
 from games.mijnlieff.MijnlieffState import MijnlieffState
  
 class MijnlieffRules():
-
+    """ apagar isto """
     def __display_Rules(self, row, col, choice):
         print({
             0: 1['+'],
