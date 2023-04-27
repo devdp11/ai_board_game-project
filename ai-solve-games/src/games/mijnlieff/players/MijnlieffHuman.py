@@ -23,7 +23,6 @@ class HumanMijnlieffPlayer(MijnlieffPlayer):
                 col = int(input(f"Player {state.get_acting_player()}, Escolha uma Linha: "))
                 row = int(input(f"Player {state.get_acting_player()}, Escolha uma Coluna: "))
                 action = MijnlieffAction(row, col, piece)
-                print("teste")
 
                 # Check if the move is valid based on the last_action
                 if last_action is not None and not state.is_valid_move(last_action, action):

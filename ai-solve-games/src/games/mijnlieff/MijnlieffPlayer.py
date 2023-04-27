@@ -8,6 +8,8 @@ class MijnlieffPlayer(Player, ABC):
 
     def __init__(self, name):
         super().__init__(name)
+        self.__stats = {None: 0, "win": 0, "loss": 0, "draw": 0}
+
 
         """
         stats is a dictionary that will store the number of times each result occurred
@@ -35,5 +37,5 @@ class MijnlieffPlayer(Player, ABC):
         self.__num_games += 1
 
     def event_result(self, pos: int, result: MijnlieffResult):
-        if pos == self.get_current_pos():
+        if pos == self.get_current_pos() and result is not None:
             self.__stats[result] += 1
