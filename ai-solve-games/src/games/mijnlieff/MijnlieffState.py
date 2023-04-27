@@ -102,8 +102,10 @@ class MijnlieffState(State):
         player = self.get_acting_player()
 
         self.__grid[row][col] = (player, piece)
-    
-        self.__has_winner = self.__check_winner()
+        """meter um if o quadro estiver completo da este check winner"""
+
+        if self.__is_full():
+            self.__has_winner = self.__check_winner()
 
         self.__acting_player = 1 if self.__acting_player == 0 else 0
 
@@ -120,7 +122,7 @@ class MijnlieffState(State):
         col_diff = abs(target_col - current_col)
 
         piece_type = last_action.get_type()
-
+    
         if piece_type == MijnlieffPieceType.S:
             return col_diff == 0 or row_diff == 0
         elif piece_type == MijnlieffPieceType.D:
@@ -136,9 +138,9 @@ class MijnlieffState(State):
         return self.__last_move
     
     def display_cell(self, row, col):
-            cell = self.grid[row][col]
+            cell = self.__grid[row][col]
             if cell is None:
-                print(" ", end="")
+                print("  ", end="")
             else:
                 player, piece = cell
                 piece = MijnlieffPieceType(piece)  # Convert the integer piece to a MijnlieffPieceType
@@ -146,13 +148,13 @@ class MijnlieffState(State):
 
     def __display_numbers(self):
         for col in range(self.__num_cols):
-            print("  ", end=" ")
-            print(col, end="")
-        print("")
+            print("   ", end=" ")
+            print(col, end=" ")
+        print("  ")
 
     def __display_separator(self):
         for col in range(self.__num_cols):
-            print("----", end="")
+            print("------", end="")
         print("")
 
     def display(self):
@@ -193,8 +195,6 @@ class MijnlieffState(State):
     def get_result(self, pos) -> Optional[MijnlieffResult]:
         if self.__has_winner:
             return MijnlieffResult.LOOSE if pos == self.__acting_player else MijnlieffResult.WIN
-        if self.__is_full():
-            return MijnlieffResult.DRAW
         return None
 
     def get_num_rows(self):
