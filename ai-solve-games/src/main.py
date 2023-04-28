@@ -37,12 +37,11 @@ def menu():
             break
 
 def information():
-    print("\n-- Regulamento das Peças --")
+    print("\n-- Regras do Jogo --")
     print('Peça  Straights (1 | S) - Ao jogar esta peça, o oponente só poderá jogar nas posições retas à ultima peça colocada.')
     print('Peça  Diagonals (2 | D) - Ao jogar esta peça, o oponente só poderá jogar nas posições diagonais à ultima peça colocada.')
     print('Peça  Pushers (3 | H) - Ao jogar esta peça, o oponente só poderá jogar nas posições adjacentes à ultima peça colocada.')
-    print('Peça  Pullers (4 | L) - Ao jogar esta peça, o oponente só poderá jogar nas posições não adjacentes à ultima peça colocada.')
-    print("\n-- Regras do Jogo --")
+    print('Peça  Pullers (4 | L) - Ao jogar esta peça, o oponente só poderá jogar nas posições não adjacentes à ultima peça colocada.\n')
     print("-> O jogo só termina quando o tabuleiro esta completo ou quando o jogador já não consegue colocar mais nenhuma peça.")
     print("-> A primeira jogada poderá ser em qualquer lugar do tabuleiro mas de adiante as jogadas terão que respeitar o regulamento conforme as peças.")
     print("-> O jogador terá 8 peças, 2 de cada tipo podendo usar apenas cada tipo 2 vezes e não podendo mudar a posição depois de colocada.\n")
@@ -61,7 +60,7 @@ def main():
         {
            "name": f"\nMijnLieff - {name1} VS MiniMax\n",
            "player1": HumanMijnlieffPlayer(f"{name1}"),
-           "player2": HumanMijnlieffPlayer("1")
+           "player2": RandomMijnlieffPlayer("1")
         },
     ]
 

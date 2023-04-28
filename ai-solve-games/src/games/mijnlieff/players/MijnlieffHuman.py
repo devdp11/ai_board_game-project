@@ -20,12 +20,11 @@ class HumanMijnlieffPlayer(MijnlieffPlayer):
                     print("Invalid piece. Please choose a piece between 1 and 4.\n")
                     continue
 
-                col = int(input(f"Player {state.get_acting_player()}, Escolha uma Linha: "))
-                row = int(input(f"Player {state.get_acting_player()}, Escolha uma Coluna: "))
-                action = MijnlieffAction(row, col, piece)
-                print("a %d", last_action)
+                row = int(input(f"Player {state.get_acting_player()}, Escolha uma Linha: "))
+                col = int(input(f"Player {state.get_acting_player()}, Escolha uma Coluna: "))
+                action = MijnlieffAction(col, row, list(MijnlieffPieceType)[piece-1])
                 # Check if the move is valid based on the last_action
-                if last_action is not None and not state.is_valid_move(last_action, action):
+                if last_action is not None and not state.is_valid_move(action):
                     print("Invalid move based on the last played piece. Please try again.\n")
                     continue
 
