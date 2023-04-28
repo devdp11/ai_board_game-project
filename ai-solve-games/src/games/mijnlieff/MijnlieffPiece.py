@@ -1,7 +1,5 @@
 from games.mijnlieff.MijnlieffPieceType import MijnlieffPieceType
 
-
-
 class MijnlieffPiece:
     __piece_type: MijnlieffPieceType
 

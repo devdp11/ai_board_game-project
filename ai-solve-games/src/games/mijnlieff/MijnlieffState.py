@@ -126,9 +126,9 @@ class MijnlieffState(State):
         elif piece_type == MijnlieffPieceType.D:
             return col_diff == row_diff
         elif piece_type == MijnlieffPieceType.H:
-            return (col_diff == 1 and row_diff == 0) or (col_diff == 0 and row_diff == 1) 
+            return (col_diff >= 2 and row_diff >= 0) or (col_diff >= 0 and row_diff >= 2) or (col_diff > 1 and row_diff > 0) or (col_diff > 0 and row_diff > 1) or (col_diff >= 2 and row_diff >= 2)
         elif piece_type == MijnlieffPieceType.L:
-            return (col_diff >= 2 and row_diff >= 0) or (col_diff >= 0 and row_diff >= 2) or (col_diff > 1 and row_diff > 0) or (col_diff > 0 and row_diff > 1)
+            return (col_diff == 1 and row_diff == 0) or (col_diff == 0 and row_diff == 1) or (col_diff == 1 and row_diff == 1) 
         
         return False
 
