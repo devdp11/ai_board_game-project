@@ -114,7 +114,15 @@ class MijnlieffState(State):
         self.__turns_count += 1
 
     def is_valid_move(self, action: MijnlieffAction):
+        print("a")
         last_action = self.last_move_player_1 if self.acting_player == 0 else self.__last_move_player_0
+        current_col = last_action.get_col()
+        current_row = last_action.get_row()
+        target_col = action.get_col()
+        target_row = action.get_row()
+        row_diff = abs(target_row - current_row)
+        col_diff = abs(target_col - current_col)
+        
         if last_action is None:
             return True  # No restriction for the first move of each player
 
@@ -126,14 +134,17 @@ class MijnlieffState(State):
         col_diff = abs(target_col - current_col)
 
         piece_type = last_action.get_type()
-
         if piece_type == MijnlieffPieceType.S:
+            print("a %d", row_diff)
             return col_diff == 0 or row_diff == 0
         elif piece_type == MijnlieffPieceType.D:
+            print("b %d", row_diff)
             return col_diff == row_diff
         elif piece_type == MijnlieffPieceType.H:
+            print("c %d", row_diff)
             return col_diff == 1 and row_diff == 1
         elif piece_type == MijnlieffPieceType.L:
+            print("d %d", row_diff)
             return (col_diff == 0 and row_diff == 1) or (col_diff == 1 and row_diff == 0)
 
         return False
