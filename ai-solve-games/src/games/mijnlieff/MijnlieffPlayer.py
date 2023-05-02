@@ -1,3 +1,4 @@
+
 from abc import ABC
 
 from games.mijnlieff.MijnlieffResult import MijnlieffResult

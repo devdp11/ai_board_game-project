@@ -26,40 +26,45 @@ class MijnlieffState(State):
         self.__acting_player = 0
 
         self.__has_winner = False
+        
+        self.__winner = None
+        
+        self.__size = 3
 
-    def check_winner(self):
-        scores = [0, 0]
-
-        # Check horizontal and vertical lines
-        for row in range(self.__num_rows):
-            scores[0] += self.check_line_winner(self.__grid[row], 0)
-            scores[1] += self.check_line_winner(self.__grid[row], 1)
-
-        for col in range(self.__num_cols):
-            column = [self.__grid[row][col] for row in range(self.__num_rows)]
-            scores[0] += self.check_line_winner(column, 0)
-            scores[1] += self.check_line_winner(column, 1)
-
-        # Check diagonals
-        for direction in [1, -1]:
-            for row in range(self.__num_rows - 3):
-                for col in range(self.__num_cols - 3):
-                    diagonal = [self.__grid[row + i][col + i * direction] for i in range(4)]
-                    scores[0] += self.check_line_winner(diagonal, 0)
-                    scores[1] += self.check_line_winner(diagonal, 1)
-
-        if scores[0] > scores[1]:
-            return 0
-        elif scores[1] > scores[0]:
-            return 1
-        else:
-            return -1  # game is a draw
-
-    def check_line_winner(self, line: List[Tuple[int, MijnlieffPieceType]], player: int) -> int:
+    def __count_sequences(self, player):
         count = 0
-        for i in range(len(line) - 2):
-            if line[i] is not None and line[i] == line[i + 1] == line[i + 2] == player:
-                count += 1
+        # check for 3 across
+        for row in range(0, self.__size):
+            for col in range(0, self.__size - 2):
+                if self.__grid[row][col] == player and \
+                        self.__grid[row][col + 1] == player and \
+                        self.__grid[row][col + 2] == player:
+                    count += 1
+
+        # check for 3 up and down
+        for row in range(0, self.__size - 2):
+            for col in range(0, self.__size):
+                if self.__grid[row][col] == player and \
+                        self.__grid[row + 1][col] == player and \
+                        self.__grid[row + 2][col] == player:
+                    count += 1
+
+        # check upward diagonal
+        for row in range(2, self.__size):
+            for col in range(0, self.__size - 2):
+                if self.__grid[row][col] == player and \
+                        self.__grid[row - 1][col + 1] == player and \
+                        self.__grid[row - 2][col + 2] == player:
+                    count += 1
+
+        # check downward diagonal
+        for row in range(0, self.__size - 2):
+            for col in range(0, self.__size - 2):
+                if self.__grid[row][col] == player and \
+                        self.__grid[row + 1][col + 1] == player and \
+                        self.__grid[row + 2][col + 2] == player:
+                    count += 1
+
         return count
 
     def get_grid(self):
@@ -94,17 +99,25 @@ class MijnlieffState(State):
         self.__grid[row][col] = (player, piece)
 
         if self.__is_full() or len(self.get_possible_actions()) == 0:
-            self.has_winner = self.check_winner()
+            self.has_winner = self.__check_winner()
 
-        """ if self.__acting_player == 0:
-            self.last_move_player_0 = action
-        else:
-            self.last_move_player_1 = action """
+        """ if self.__acting_player == 0: self.last_move_player_0 = action | else: self.last_move_player_1 = action """
         self.__last_move = action
 
         self.__acting_player = 1 if self.__acting_player == 0 else 0
 
         self.__turns_count += 1
+
+    def __check_winner(self):
+        p0_seqs = self.__count_sequences(0)
+        p1_seqs = self.__count_sequences(1)
+
+        if p0_seqs > p1_seqs:
+            self.__winner = 0
+        elif p1_seqs > p0_seqs:
+            self.__winner = 1
+        else:
+            self.__winner = None
 
     def is_valid_move(self, action: MijnlieffAction):
         last_action = self.get_last_move()
@@ -128,7 +141,7 @@ class MijnlieffState(State):
         elif piece_type == MijnlieffPieceType.H:
             return (col_diff >= 2 and row_diff >= 0) or (col_diff >= 0 and row_diff >= 2) or (col_diff > 1 and row_diff > 0) or (col_diff > 0 and row_diff > 1) or (col_diff >= 2 and row_diff >= 2)
         elif piece_type == MijnlieffPieceType.L:
-            return (col_diff == 1 and row_diff == 0) or (col_diff == 0 and row_diff == 1) or (col_diff == 1 and row_diff == 1) 
+            return (col_diff == 1 and row_diff == 0) or (col_diff == 0 and row_diff == 1) or (col_diff == 1 and row_diff == 1)
         
         return False
 

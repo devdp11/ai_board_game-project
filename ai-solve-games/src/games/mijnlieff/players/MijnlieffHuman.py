@@ -1,3 +1,5 @@
+
+
 from games.mijnlieff.MijnlieffAction import MijnlieffAction
 from games.mijnlieff.MijnlieffPlayer import MijnlieffPlayer
 from games.mijnlieff.MijnlieffState import MijnlieffState
@@ -14,14 +16,17 @@ class HumanMijnlieffPlayer(MijnlieffPlayer):
         last_action = state.get_last_move()
         while True:
             # noinspection PyBroadException
+            """choice = input("Do you want to play (1) or pass the round (2) [Verify if you can play a piece according to the game rules]:")         
+                if choice not in range(1,1): print("Choose an option between 1 and 2!\n")"""
+
             try:
-                piece = int(input(f"Player {state.get_acting_player()}, Escolha uma Peça (1(S) | 2(D) | 3(H) | 4(L)): "))
+                piece = int(input(f"Player {state.get_acting_player()}, Choose an Piece (1(S) | 2(D) | 3(H) | 4(L)): "))
                 if piece not in range(1, 5):
                     print("Invalid piece. Please choose a piece between 1 and 4.\n")
                     continue
 
-                row = int(input(f"Player {state.get_acting_player()}, Escolha uma Linha: "))
-                col = int(input(f"Player {state.get_acting_player()}, Escolha uma Coluna: "))
+                row = int(input(f"Player {state.get_acting_player()}, Choose an line: "))
+                col = int(input(f"Player {state.get_acting_player()}, Choose an column: "))
                 action = MijnlieffAction(col, row, list(MijnlieffPieceType)[piece-1])
                 # Check if the move is valid based on the last_action
                 if last_action is not None and not state.is_valid_move(action):

@@ -1,3 +1,4 @@
+
 from random import randint
 
 from games.mijnlieff.MijnlieffAction import MijnlieffAction

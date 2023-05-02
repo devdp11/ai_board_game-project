@@ -1,3 +1,4 @@
+
 from games.mijnlieff.MijnlieffPlayer import MijnlieffPlayer
 from games.mijnlieff.MijnlieffState import MijnlieffState
 from games.game_simulator import GameSimulator
@@ -8,7 +9,7 @@ class MijnlieffSimulator(GameSimulator):
     def __init__(self, player1: MijnlieffPlayer, player2: MijnlieffPlayer, num_rows: int = 4, num_cols: int = 4):
         super(MijnlieffSimulator, self).__init__([player1, player2])
         """
-        the number of rows and cols from the connect4 grid
+        the number of rows and cols from the Mijnlieff grid
         """
         self.__num_rows = num_rows
         self.__num_cols = num_cols

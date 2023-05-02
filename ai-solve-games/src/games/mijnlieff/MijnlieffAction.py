@@ -1,3 +1,4 @@
+
 from games.mijnlieff.MijnlieffPieceType import MijnlieffPieceType
 
 class MijnlieffAction:

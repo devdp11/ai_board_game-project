@@ -1,3 +1,4 @@
+
 from abc import ABC, abstractmethod
 
 
@@ -11,7 +12,8 @@ class State(ABC):
         pass
 
     """
-    Checks if an action can be performed in the current state and returns true if so
+    Checks if an action can be performed in the current state 
+    and returns true if so
     :param action: action that we want to validate
     :return bool:
     """
@@ -20,7 +22,8 @@ class State(ABC):
         pass
 
     """
-    Updates the game state with an action (if valid, check validate_action)
+    Updates the game state with an action 
+    (if valid, check validate_action)
     """
     @abstractmethod
     def update(self, action):

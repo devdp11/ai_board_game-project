@@ -2,7 +2,6 @@ from games.mijnlieff.players.MijnlieffMinimax import MinimaxMijnlieffPlayer
 from games.mijnlieff.players.MijnlieffRandom import RandomMijnlieffPlayer
 from games.mijnlieff.players.MijnlieffHuman import HumanMijnlieffPlayer
 from games.mijnlieff.MijnlieffSimulator import MijnlieffSimulator
-from games.mijnlieff.MijnlieffRules import MijnlieffRules
 
 from games.game_simulator import GameSimulator
 
@@ -59,6 +58,11 @@ def main():
            "player1": HumanMijnlieffPlayer("Player"),
            "player2": RandomMijnlieffPlayer("Random")
         },
+       """  {
+           "name": sim_name,
+           "player1": player1,
+           "player2": player2
+        }, """
     ]
 
     for sim in mijnlieff_simulations:

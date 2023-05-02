@@ -1,3 +1,4 @@
+
 from abc import ABC, abstractmethod
 
 from games.player import Player
@@ -40,7 +41,8 @@ class GameSimulator(ABC):
                 a[size - 1] = temp
 
     """
-    Swaps the order of the players. The order is changed in a way that guarantees that all combinations are considered
+    Swaps the order of the players. The order is changed in a way 
+    that guarantees that all combinations are considered
     Example for 2 players [a,b]
         - iteration 1: a,b
         - iteration 2, b,a

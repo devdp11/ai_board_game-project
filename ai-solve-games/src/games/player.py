@@ -1,3 +1,4 @@
+
 from abc import ABC, abstractmethod
 
 from games.state import State
@@ -58,7 +59,8 @@ class Player(ABC):
         pass
 
     """
-    A method that notifies the player that someone did a certain action. This can be used to log opponents actions
+    A method that notifies the player that someone did a certain action. 
+    This can be used to log opponents actions
     :param pos: the position of the player that performed the action
     :param action: the action that was performed
     :param new_state: the resulting game state
