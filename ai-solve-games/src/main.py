@@ -1,4 +1,5 @@
 from games.mijnlieff.players.MijnlieffMinimax import MinimaxMijnlieffPlayer
+from games.mijnlieff.players.MijnlieffGreedy import GreedyMijnlieffPlayer
 from games.mijnlieff.players.MijnlieffRandom import RandomMijnlieffPlayer
 from games.mijnlieff.players.MijnlieffHuman import HumanMijnlieffPlayer
 from games.mijnlieff.MijnlieffSimulator import MijnlieffSimulator
@@ -12,7 +13,7 @@ def run_simulation(desc: str, simulator: GameSimulator, iterations: int):
         simulator.change_player_positions()
         simulator.run_simulation()
 
-    print("\nResults for the game:")
+    print("\n\nResults for the game:")
     simulator.print_stats()
     
 def menu():
@@ -50,22 +51,71 @@ def information():
 def main():
     print("\nINTELIGÊNCIA ARTIFICIAL TP1 GAME")
     
-    num_iterations = 1
 
-    mijnlieff_simulations = [
-        {
-           "name": "MijnLieff - Player VS Random",
-           "player1": HumanMijnlieffPlayer("Player"),
-           "player2": RandomMijnlieffPlayer("Random")
-        },
-       """  {
-           "name": sim_name,
-           "player1": player1,
-           "player2": player2
-        }, """
-    ]
+    num_iterations = 100
+    while True:
 
-    for sim in mijnlieff_simulations:
-        run_simulation(sim["name"], MijnlieffSimulator(sim["player1"], sim["player2"]), num_iterations)
+        print("\n1 - Player vs Player")
+        print("2 - Player vs Computer")
+        print("3 - Computer vs Computer")
+        print("0 - Return to Lobby")
+        
+        escolha = input("Select and option: ")
+
+        if escolha not in ["0", "1", "2", "3"]:
+            print("\nWrong Option | Choose another...")
+            continue
+
+        if escolha in ["2", "3"]:
+            if True:
+
+                try:
+                    if escolha in ["3"]:
+                        num_iterations = int(input("\nChoose how many interactions you want: "))
+                        if num_iterations <= 0 or not int:
+                            return
+
+                    print("\n1 - Easy")
+                    print("2 - Medium")
+                    print("3 - Hard")
+                    level = input("Select a Difficulty: ")
+                except ValueError:
+                    return
+        
+        if escolha in "1":
+            mijnlieff_simulations = [
+                {
+                    "name": "Mijnlieff",
+                    "player1": HumanMijnlieffPlayer("Player1"),
+                    "player2": HumanMijnlieffPlayer("Player2")
+                }
+            ]
+ 
+        elif escolha in "2" and level not in ["1", "2", "3"]:
+            print("\nYou have to choose a valid level...")
+            continue
+        
+        elif escolha in "2" and level in "1":
+            mijnlieff_simulations = [
+                {
+                    "name": "Mijnlieff - Player - Random",
+                    "player1": HumanMijnlieffPlayer("Player1"),
+                    "player2": RandomMijnlieffPlayer("Random")
+                }
+            ]
+        elif escolha in "3" and level in "1":
+            mijnlieff_simulations = [
+                {
+                    "name": "Mijnlieff - Random1 - Random2",
+                    "player1": RandomMijnlieffPlayer("Random1"),
+                    "player2": RandomMijnlieffPlayer("Random2")
+                }
+            ]
+
+        elif escolha in '0':
+            return
+    
+        for sim in mijnlieff_simulations:
+            run_simulation(sim["name"], MijnlieffSimulator(sim["player1"], sim["player2"]), num_iterations)
 
 menu()

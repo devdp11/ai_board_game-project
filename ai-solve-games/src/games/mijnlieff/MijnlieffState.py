@@ -29,40 +29,44 @@ class MijnlieffState(State):
         
         self.__winner = None
         
-        self.__size = 3
+        self.__size = 4
 
     def __count_sequences(self, player):
         count = 0
         # check for 3 across
-        for row in range(0, self.__size):
-            for col in range(0, self.__size - 2):
+        for row in range(0, self.__size - 1):
+            for col in range(0, self.__size - 3):
                 if self.__grid[row][col] == player and \
                         self.__grid[row][col + 1] == player and \
-                        self.__grid[row][col + 2] == player:
+                        self.__grid[row][col + 2] == player and \
+                        self.__grid[row][col + 3] == player:
                     count += 1
 
         # check for 3 up and down
-        for row in range(0, self.__size - 2):
-            for col in range(0, self.__size):
+        for row in range(0, self.__size - 3):
+            for col in range(0, self.__size - 1):
                 if self.__grid[row][col] == player and \
                         self.__grid[row + 1][col] == player and \
-                        self.__grid[row + 2][col] == player:
+                        self.__grid[row + 2][col] == player and \
+                        self.__grid[row + 3][col] == player:
                     count += 1
 
         # check upward diagonal
         for row in range(2, self.__size):
-            for col in range(0, self.__size - 2):
+            for col in range(0, self.__size - 3):
                 if self.__grid[row][col] == player and \
                         self.__grid[row - 1][col + 1] == player and \
-                        self.__grid[row - 2][col + 2] == player:
+                        self.__grid[row - 2][col + 2] == player and \
+                        self.__grid[row - 3][col + 3] == player:
                     count += 1
 
         # check downward diagonal
-        for row in range(0, self.__size - 2):
-            for col in range(0, self.__size - 2):
+        for row in range(0, self.__size - 3):
+            for col in range(0, self.__size - 3):
                 if self.__grid[row][col] == player and \
                         self.__grid[row + 1][col + 1] == player and \
-                        self.__grid[row + 2][col + 2] == player:
+                        self.__grid[row + 2][col + 2] == player and \
+                        self.__grid[row + 3][col + 3] == player:
                     count += 1
 
         return count

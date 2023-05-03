@@ -2,6 +2,8 @@ from random import choice
 from games.mijnlieff.MijnlieffAction import MijnlieffAction
 from games.mijnlieff.MijnlieffPlayer import MijnlieffPlayer
 from games.mijnlieff.MijnlieffState import MijnlieffState
+from games.mijnlieff.MijnlieffPieceType import MijnlieffPieceType
+
 from games.state import State
 
 
@@ -16,7 +18,7 @@ class GreedyMijnlieffPlayer(MijnlieffPlayer):
         selected_col = None
         max_count = 0
 
-        for col in range(0, state.get_num_cols()):
+        for col in range(0, state.get_num_cols(), """ state.get_num_rows, MijnlieffPieceType.type """):
             if not state.validate_action(MijnlieffAction(col, row)):
                 continue
 
