@@ -52,7 +52,7 @@ def main():
     print("\nINTELIGÊNCIA ARTIFICIAL TP1 GAME")
     
 
-    num_iterations = 100
+    num_iterations = 1
     while True:
 
         print("\n1 - Player vs Player")
