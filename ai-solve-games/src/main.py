@@ -14,7 +14,7 @@ def run_simulation(desc: str, simulator: GameSimulator, iterations: int):
         simulator.run_simulation()
 
     print("\n\nResults for the game:")
-    simulator.print_stats()
+    print(simulator.print_stats())
     
 def menu():
     while(True):
@@ -52,7 +52,7 @@ def main():
     print("\nINTELIGÊNCIA ARTIFICIAL TP1 GAME")
     
 
-    num_iterations = 1
+    num_iterations = 100
     while True:
 
         print("\n1 - Player vs Player")
