@@ -16,8 +16,6 @@ class HumanMijnlieffPlayer(MijnlieffPlayer):
         last_action = state.get_last_move()
         while True:
             # noinspection PyBroadException
-            """choice = input("Do you want to play (1) or pass the round (2) [Verify if you can play a piece according to the game rules]:")         
-                if choice not in range(1,1): print("Choose an option between 1 and 2!\n")"""
 
             try:
                 piece = int(input(f"Player {state.get_acting_player()}, Choose an Piece (1(S) | 2(D) | 3(H) | 4(L)): "))

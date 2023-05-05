@@ -31,9 +31,10 @@ class MijnlieffState(State):
         
         self.__size = 4
 
+
+
     def __count_sequences(self, player):
         count = 0
-        print("\nFoste Testado v2")
         # check for 3 across
         for row in range(0, self.__size - 1):
             for col in range(0, self.__size - 3):
@@ -100,7 +101,7 @@ class MijnlieffState(State):
         piece = action.get_type()
 
         player = self.get_acting_player()
-
+        
         self.__grid[row][col] = (player, piece)
 
         if self.__is_full() or len(self.get_possible_actions()) == 0:
@@ -110,18 +111,16 @@ class MijnlieffState(State):
         self.__last_move = action
 
         self.__acting_player = 1 if self.__acting_player == 0 else 0
-
         self.__turns_count += 1
 
     def __check_winner(self):
-        print("\nFoste Testado v1")
+        p0_seqs = self.__count_sequences(0)
         p1_seqs = self.__count_sequences(1)
-        p2_seqs = self.__count_sequences(2)
 
-        if p1_seqs > p2_seqs:
+        if p0_seqs > p1_seqs:
+            self.__winner = 0
+        elif p1_seqs > p0_seqs:
             self.__winner = 1
-        elif p2_seqs > p1_seqs:
-            self.__winner = 2
         else:
             self.__winner = None
 

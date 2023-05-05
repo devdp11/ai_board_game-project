@@ -75,9 +75,9 @@ def main():
                         if num_iterations <= 0 or not int:
                             return
 
-                    print("\n1 - Easy")
-                    print("2 - Medium")
-                    print("3 - Hard")
+                    print("\n1 - Random")
+                    print("2 - Greedy")
+                    print("3 - Minimax")
                     level = input("Select a Difficulty: ")
                 except ValueError:
                     return
