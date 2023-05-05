@@ -86,10 +86,10 @@ class GreedyMijnlieffPlayer(MijnlieffPlayer):
             raise Exception("there is no valid action")
         return state.get_closest_to_center(selected_actions)
     def event_action(self, pos: int, action, new_state: State):
-        return super().event_action(pos, action, new_state)
+        
         #ignore
         pass
     def event_end_game(self, final_state: State):
-        return super().event_end_game(final_state)
+        
         #ignore
         pass
