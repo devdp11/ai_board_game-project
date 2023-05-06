@@ -1,11 +1,11 @@
 import math 
 from random import choice
+
+from games.state import State
 from games.mijnlieff.MijnlieffAction import MijnlieffAction
 from games.mijnlieff.MijnlieffPlayer import MijnlieffPlayer
 from games.mijnlieff.MijnlieffState import MijnlieffState
 from games.mijnlieff.MijnlieffPieceType import MijnlieffPieceType
-
-from games.state import State
 
 
 class GreedyMijnlieffPlayer(MijnlieffPlayer):
@@ -50,7 +50,7 @@ class GreedyMijnlieffPlayer(MijnlieffPlayer):
                 seq1 = (1 if grid[row][col] == self.get_current_pos() else 0) + \
                        (1 if grid[row -1][col + 1] == self.get_current_pos() else 0)
                 
-                seq2 = (1 if grid[row -1][col +1] == self.get_current_pos() else 0) +\
+                seq2 = (1 if grid[row -1][col +1] == self.get_current_pos() else 0) + \
                        (1 if grid[row -2][col +2] == self.get_current_pos() else 0)
                 
                 if seq1 > max_count:
@@ -86,10 +86,6 @@ class GreedyMijnlieffPlayer(MijnlieffPlayer):
             raise Exception("there is no valid action")
         return state.get_closest_to_center(selected_actions)
     def event_action(self, pos: int, action, new_state: State):
-        
-        #ignore
-        pass
+        return super().event_action(pos, action, new_state)
     def event_end_game(self, final_state: State):
-        
-        #ignore
-        pass
+        return super().event_end_game(final_state)

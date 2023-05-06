@@ -115,8 +115,8 @@ def main():
             mijnlieff_simulations = [
                 {
                     "name": "Mijnlieff - Greedy1 - Greedy2y",
-                    "player1": GreedyMijnlieffPlayer("Random1"),
-                    "player2": GreedyMijnlieffPlayer("Random2")
+                    "player1": GreedyMijnlieffPlayer("Greedy1"),
+                    "player2": GreedyMijnlieffPlayer("Greedy2y")
                 }
             ]
 
