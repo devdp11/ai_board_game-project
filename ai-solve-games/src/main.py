@@ -52,7 +52,7 @@ def main():
     print("\nINTELIGÊNCIA ARTIFICIAL TP1 GAME")
     
 
-    num_iterations = 100
+    num_iterations = 1
     while True:
 
         print("\n1 - Player vs Player")
@@ -111,6 +111,14 @@ def main():
                     "player2": RandomMijnlieffPlayer("Random2")
                 }
             ]
+        elif escolha in "3" and level in "2":
+            mijnlieff_simulations = [
+                {
+                    "name": "Mijnlieff - Greedy1 - Greedy2y",
+                    "player1": GreedyMijnlieffPlayer("Random1"),
+                    "player2": GreedyMijnlieffPlayer("Random2")
+                }
+            ]
 
         elif escolha in '0':
             return
@@ -119,3 +127,6 @@ def main():
             run_simulation(sim["name"], MijnlieffSimulator(sim["player1"], sim["player2"]), num_iterations)
 
 menu()
+
+if __name__ == '__main__':
+    main()

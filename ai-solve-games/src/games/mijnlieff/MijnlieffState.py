@@ -151,7 +151,8 @@ class MijnlieffState(State):
                 print("  ", end="")
             else:
                 player, piece = cell
-                piece = MijnlieffPieceType(piece)  # Convert the integer piece to a MijnlieffPieceType
+                # Convert the integer piece to a MijnlieffPieceType
+                piece = MijnlieffPieceType(piece)
                 print(f"{piece.name}{player + 1}", end="")
 
     def __display_numbers(self):
