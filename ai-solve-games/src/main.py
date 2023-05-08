@@ -103,20 +103,45 @@ def main():
                     "player2": RandomMijnlieffPlayer("Random")
                 }
             ]
+        elif escolha in "2" and level in "2":
+            mijnlieff_simulations =[
+                {
+                    "name": "Mijnlieff - Player - Greedy",
+                    "player1": HumanMijnlieffPlayer("Player1"),
+                    "player2": HumanMijnlieffPlayer("Greedy")
+                }
+            ]
+        elif escolha in "2" and level in "3":
+            mijnlieff_simulations = [
+                {
+                    "name": " Mijnlieff - Player - Minimax",
+                    "player1": HumanMijnlieffPlayer("Player1"),
+                    "player2": HumanMijnlieffPlayer("Minimax")
+                }
+            ]
         elif escolha in "3" and level in "1":
             mijnlieff_simulations = [
                 {
                     "name": "Mijnlieff - Random1 - Random2",
-                    "player1": RandomMijnlieffPlayer("Random1"),
-                    "player2": RandomMijnlieffPlayer("Random2")
+                    "player1": RandomMijnlieffPlayer("Random"),
+                    "player2": RandomMijnlieffPlayer("Random")
                 }
             ]
+        
         elif escolha in "3" and level in "2":
             mijnlieff_simulations = [
                 {
                     "name": "Mijnlieff - Greedy1 - Greedy2y",
-                    "player1": GreedyMijnlieffPlayer("Greedy1"),
-                    "player2": GreedyMijnlieffPlayer("Greedy2y")
+                    "player1": GreedyMijnlieffPlayer("Greedy"),
+                    "player2": GreedyMijnlieffPlayer("Greedy")
+                }
+            ]
+        elif escolha in "3" and level in "3":
+            mijnlieff_simulations = [
+                {
+                    "name": "Mijnlieff - Minimax1 - Minimax2",
+                    "player1": GreedyMijnlieffPlayer("Minimax"),
+                    "player2": GreedyMijnlieffPlayer("Minimax")
                 }
             ]
 
