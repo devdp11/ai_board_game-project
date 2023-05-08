@@ -68,6 +68,8 @@ class MijnlieffState(State):
     def get_grid(self):
         return self.__grid
 
+    
+
     def get_num_players(self):
         return 2
 

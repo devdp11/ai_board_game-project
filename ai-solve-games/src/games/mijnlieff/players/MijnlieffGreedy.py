@@ -13,7 +13,7 @@ class GreedyMijnlieffPlayer(MijnlieffPlayer):
     def __init__(self, name):
         super().__init__(name)
 
-    def get_action(self, state: MijnlieffState):
+    def __heuristi(self, state: MijnlieffState):
 
         grid = state.get_grid()
 
@@ -74,18 +74,19 @@ class GreedyMijnlieffPlayer(MijnlieffPlayer):
         return max_count
     def get_action(self, state: MijnlieffState):
         selected_actions = None
-        value = -match.inf
+        value = -math.inf
         for action in state.get_possible_actions():
             pre_valoe = value
-            value = max(value, self.__heuristic(state.sim_play(action)))
+            value = max(value, self.__heuristi(state.sim_play(action)))
             if value == pre_valoe:
                 selected_actions.append(action)
             if value > pre_valoe:
                 selected_actions = [action]
         if selected_actions is None:
             raise Exception("there is no valid action")
-        return state.get_closest_to_center(selected_actions)
+        return choice(selected_actions)
+   
     def event_action(self, pos: int, action, new_state: State):
-        return super().event_action(pos, action, new_state)
+        pass
     def event_end_game(self, final_state: State):
-        return super().event_end_game(final_state)
+        pass

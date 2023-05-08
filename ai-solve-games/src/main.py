@@ -108,7 +108,7 @@ def main():
                 {
                     "name": "Mijnlieff - Player - Greedy",
                     "player1": HumanMijnlieffPlayer("Player1"),
-                    "player2": HumanMijnlieffPlayer("Greedy")
+                    "player2": GreedyMijnlieffPlayer("Greedy")
                 }
             ]
         elif escolha in "2" and level in "3":
@@ -116,7 +116,7 @@ def main():
                 {
                     "name": " Mijnlieff - Player - Minimax",
                     "player1": HumanMijnlieffPlayer("Player1"),
-                    "player2": HumanMijnlieffPlayer("Minimax")
+                    "player2": MinimaxMijnlieffPlayer("Minimax")
                 }
             ]
         elif escolha in "3" and level in "1":
